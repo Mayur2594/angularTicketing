@@ -1,0 +1,29 @@
+{
+  "name": "ticketing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mayur2594/angularTicketing.git"
+  },
+  "author": "Mayur Mhatre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mayur2594/angularTicketing/issues"
+  },
+  "homepage": "https://github.com/Mayur2594/angularTicketing#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "crypto": "^1.0.1",
+    "express": "^4.16.3",
+    "http": "0.0.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.16",
+    "morgan": "^1.9.1",
+    "multer": "^1.3.1"
+  }
+}
