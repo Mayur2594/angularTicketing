@@ -4,9 +4,14 @@ var bodypareser = require('body-parser')
 var mongoose = require('mongoose');
 var fs = require('fs');
 var morgan = require('morgan');
+const multer = require('multer');
 var routes = require('./lib/routes');
+var departmentschema = require('./lib/models/departmentDetails');
+var departmentdetails = mongoose.model('departmentDetails');
 
 var app = express();
+
+const dir = 'app/uploads';
 
 app.use(bodypareser.urlencoded({limit:'5mb',extended:true}));
 app.use(bodypareser.json({limit:'5mb'}));
@@ -26,17 +31,68 @@ const options = {
   family: 4 // Use IPv4, skip trying IPv6
 };
 
-mongoose.connect(process.env.MONGOLAB_URI, options).then(
-  () => { 
-     console.log("Connected successfully");
-  /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
-  err => { /** handle initial connection error */ 
-	console.log("Datebase error: "+err);
-  }
-);
-
 
 routes.configure(app);
+
+let storage = multer.diskStorage({
+			destination: (req, file, cb) => {
+			  cb(null, dir);
+			},
+			filename: (req, file, cb) => {
+			  cb(null, file.fieldname + '-' + Date.now() + '.' + path.extname(file.originalname));
+			}
+		});
+		let upload = multer({storage: storage});
+		
+			app.post('/api/uploadfile', upload.single('file'), function (req, res, next) {
+	
+				  var details = {'name':'HR','icon': req.file.filename,'colorcodes':{'color1':'red','color2':'green'},'createdby':'237vbdudy178bdyudbd'}
+				  var departmentdata = req.body;
+					mongoose.connect(process.env.MONGOLAB_URI, options).then(
+					  () => { 
+					
+			 var dprtdetails = new departmentdetails(details);
+			 
+			if(departmentdata._id)
+			{
+				departmentdetails.update({ _id: departmentdata._id }, departmentdata,{ multi: true }, function(err) {
+				if(err)
+				{
+					res.send({status:1,message:'Somthing went wrong, Please try again!'});
+					mongoose.disconnect();
+				}
+				else
+				{
+					res.send({status:0,message:'Record updated successfully!'});
+					mongoose.disconnect();
+				}
+			});
+			}
+			else
+			{
+				dprtdetails.save(function(err,result) {
+					if(err)
+					{
+						res.send({status:1,message:'Somthing went wrong, Please try again!'});
+						mongoose.disconnect();
+					}
+					else
+					{
+						res.send({status:0,message:'Record inserted successfully!'});
+						mongoose.disconnect();
+					}
+				});
+			}
+					  },
+				 	  err => { /** handle initial connection error */ 
+						console.log("Datebase error: "+err);
+					  }
+					);
+
+				
+				})
+						
+
 
 var server = app.listen(parseInt(process.env.SERVING_PORT),function(){
 	console.log('server start on '+ server.address().port+ ' port');

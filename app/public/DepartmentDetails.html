@@ -1,0 +1,71 @@
+
+<div class="container-fluid" ng-controller="universalController">
+	<div class="container">
+		 <div class="row">
+			<div class="col-sm-4">
+				<button class="btn btn-primary" data-toggle="modal" data-target="#DepartmentDetails">Add New</button>
+			</div>
+			<div class="col-sm-4 pull-right">
+			  <input type="text" class="form-control" placeholder="Search" ng-model="search"/>
+			</div>
+		</div>
+		
+		<div class="row">
+		<br>
+			<div class="col-sm-4">
+				<button class="btn btn-primary">Export in Excel</button>
+			</div>
+			<div class="col-sm-4">
+				<select class="form-control">
+					<option value="" selected disabled>Display Field</option>
+				</select>
+			</div>
+			<div class="col-sm-4 pull-right">
+			  <div class="row">
+				<div class="col-md-6 col-xs-12">
+					<select class="form-control" ng-model="pageSize" ng-options="obj .value as obj.name for obj in recordsdisplay">
+					<option value="" selected disabled>Display Record</option>
+				</select>
+				</div>
+				<div class="col-md-6 col-xs-12">
+					<button style='border:none;background:transparent;color:black;' ng-disabled='currentPage == 0' class='glyphicon glyphicon-chevron-left' ng-click='currentPage=currentPage-1'></button>
+													  <b>  {{currentPage+1}} / {{numberOfPages()}} </b>
+													  <input type='number' min='1' max='{{maxpage}}' ng-change='checkcurrpage(myValue)' style='width:35%' ng-model='myValue'>
+														<button style='border:none;background:transparent;color:black' class='glyphicon glyphicon-chevron-right' ng-disabled='currentPage >= branchList.length/pageSize - 1' ng-click='currentPage=currentPage+1'></button>
+				</div>
+			  </div>
+			</div> 
+			</div>
+			<div class="modal fade" role="modal" id="DepartmentDetails"> 
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							
+						</div>
+						<div class="modal-body">
+						<form  name="form">
+						<div class="form-control">
+							<label for="name">Name:</label>
+								<input class="form-control" ng-model="" placeholder="Name"/>
+						</div>
+						<div class="form-group">
+							<label for="icon">Icon:</label>
+								<div class="btn btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+					ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" 
+					ngf-resize="{width: 100, height: 100}">Select icon</div>
+						</div>
+					
+				 
+				</form>
+						</div>
+						<div class="modal-footer">
+						 <button type="submit" class="btn btn-primary" ng-click="submit()">submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		
+	</div>
+</div>

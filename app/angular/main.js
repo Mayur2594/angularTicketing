@@ -1,4 +1,4 @@
-angular.module('Ticketing', ['ngSanitize','ngRoute','ngResource','ui.bootstrap']).config(function($routeProvider) {
+angular.module('Ticketing', ['ngSanitize','ngRoute','ngResource','ngFileUpload','ui.bootstrap']).config(function($routeProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "public/Login.html",
@@ -22,11 +22,15 @@ angular.module('Ticketing', ['ngSanitize','ngRoute','ngResource','ui.bootstrap']
 		controller:"universalController"
     })
 	.when("/QueryForm", {
-        templateUrl : "public/QueryForm.html",
+        templateUrl : "public/QueriesDetails.html",
 		controller:"universalController"
     })
 	.when("/UsersDetails", {
         templateUrl : "public/UsersDetails.html",
+		controller:"universalController"
+    })
+	.when("/DepartmentDetails", {
+        templateUrl : "public/DepartmentDetails.html",
 		controller:"universalController"
     })
 	.otherwise({
