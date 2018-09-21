@@ -1,4 +1,4 @@
-angular.module('Ticketing', ['ngSanitize','ngRoute','ngResource','ngFileUpload','ui.bootstrap']).config(function($routeProvider) {
+angular.module('Ticketing', ['ngSanitize','ngRoute','ngResource','ngFileUpload','ui.bootstrap','colorpicker.module']).config(function($routeProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "public/Login.html",

@@ -44,18 +44,19 @@ let storage = multer.diskStorage({
 		});
 		let upload = multer({storage: storage});
 		
-			app.post('/api/uploadfile', upload.single('file'), function (req, res, next) {
+			app.post('/api/SaveDetaptment', upload.single('file'), function (req, res, next) {
 	
-				  var details = {'name':'HR','icon': req.file.filename,'colorcodes':{'color1':'red','color2':'green'},'createdby':'237vbdudy178bdyudbd'}
-				  var departmentdata = req.body;
+			
+			req.body.departmentdata[0].icon = req.file.filename;
+				var deptdetails = req.body.departmentdata[0];
 					mongoose.connect(process.env.MONGOLAB_URI, options).then(
 					  () => { 
 					
-			 var dprtdetails = new departmentdetails(details);
+			 var dprtdetails = new departmentdetails(deptdetails);
 			 
-			if(departmentdata._id)
+			if(deptdetails._id)
 			{
-				departmentdetails.update({ _id: departmentdata._id }, departmentdata,{ multi: true }, function(err) {
+				departmentdetails.update({ _id: deptdetails._id }, deptdetails,{ multi: true }, function(err) {
 				if(err)
 				{
 					res.send({status:1,message:'Somthing went wrong, Please try again!'});
@@ -84,10 +85,10 @@ let storage = multer.diskStorage({
 				});
 			}
 					  },
-				 	  err => { /** handle initial connection error */ 
+				 	  err => { 
 						console.log("Datebase error: "+err);
 					  }
-					);
+					); 
 
 				
 				})

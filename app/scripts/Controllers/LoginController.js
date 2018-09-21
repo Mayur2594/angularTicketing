@@ -42,6 +42,47 @@ angular.module('Ticketing')
 			
 			/* ----------------------------------------------------------------------- */
 			
+			$scope.ListDepartments = function()
+			{
+				$http({
+					method: 'GET'
+					, url: '/api/ListDepartments/'
+					, dataType: 'jsonp'
+					}).then(function (response) {
+						$scope.departmentList = response.data;
+						$(".loader").fadeOut("slow");
+						$scope.pagination($scope.departmentList); 
+					});
+			};
+			
+			
+			$scope.getDepartmentDetails = function(dptid)
+			{
+				$http({
+					method: 'GET'
+					, url: '/api/getDepartmentDetails/'+dptid
+					, dataType: 'jsonp'
+					}).then(function (response) {
+						$scope.departmentDetails = response.data;
+					});
+			};
+			
+			$scope.deleteDepartmentDetails = function(dptid)
+			{
+				var yes = confirm('Are you sure? \n your record will paramently deleted from sysytem.')
+				if(yes)
+				{
+					$http({
+						method: 'DELETE'
+						, url: '/api/deleteDepartmentDetails/'+dptid
+						, dataType: 'jsonp'
+						}).then(function (response) {
+							alert(response.data.message);
+							$scope.ListDepartments();
+					});
+				}
+			};
+			
 			 $scope.submit = function() {
       if ($scope.form.file.$valid && $scope.file) {
         $scope.upload($scope.file);
@@ -50,17 +91,21 @@ angular.module('Ticketing')
  
     // upload on file select or drop
     $scope.upload = function (file) {
+	 $scope.departmentDetails[0].createdby ="gdhd73dbddbdj"
         Upload.upload({
-            url: '/api/uploadfile',
-            data: {file: file, 'username':"mayur"}
+            url: '/api/SaveDetaptment',
+            data: {file: file, departmentdata:$scope.departmentDetails}
         }).then(function (resp) {
-            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            //alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            alert('Record inserted successfully');
+			$scope.ListDepartments();
         }, function (resp) {
-            console.log('Error status: ' + resp.status);
+            //alert('Error status: ' + resp.status);
+            alert('Something went wrong, Please try again!');
         }, function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-        });
+        }); 
     };
 			
 	

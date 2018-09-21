@@ -1,4 +1,20 @@
 
+<script>
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgpanel')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 <div class="container-fluid" ng-controller="universalController">
 	<div class="container">
 		 <div class="row">
@@ -6,66 +22,120 @@
 				<button class="btn btn-primary" data-toggle="modal" data-target="#DepartmentDetails">Add New</button>
 			</div>
 			<div class="col-sm-4 pull-right">
-			  <input type="text" class="form-control" placeholder="Search" ng-model="search"/>
+			  <input type="text" class="form-control" placeholder="Search" ng-model="search.field"/>
 			</div>
 		</div>
 		
-		<div class="row">
+		 <div class="row">
 		<br>
 			<div class="col-sm-4">
 				<button class="btn btn-primary">Export in Excel</button>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<select class="form-control">
 					<option value="" selected disabled>Display Field</option>
 				</select>
 			</div>
-			<div class="col-sm-4 pull-right">
+			<div class="col-sm-5 pull-right ">
 			  <div class="row">
-				<div class="col-md-6 col-xs-12">
+				<div class="col-md-6 col-xs-12 col-sm-5">
 					<select class="form-control" ng-model="pageSize" ng-options="obj .value as obj.name for obj in recordsdisplay">
 					<option value="" selected disabled>Display Record</option>
 				</select>
 				</div>
-				<div class="col-md-6 col-xs-12">
+				<div class="col-md-6 col-xs-12 col-sm-7">
 					<button style='border:none;background:transparent;color:black;' ng-disabled='currentPage == 0' class='glyphicon glyphicon-chevron-left' ng-click='currentPage=currentPage-1'></button>
 													  <b>  {{currentPage+1}} / {{numberOfPages()}} </b>
 													  <input type='number' min='1' max='{{maxpage}}' ng-change='checkcurrpage(myValue)' style='width:35%' ng-model='myValue'>
-														<button style='border:none;background:transparent;color:black' class='glyphicon glyphicon-chevron-right' ng-disabled='currentPage >= branchList.length/pageSize - 1' ng-click='currentPage=currentPage+1'></button>
+														<button style='border:none;background:transparent;color:black' class='glyphicon glyphicon-chevron-right' ng-disabled='currentPage >= departmentList.length/pageSize - 1' ng-click='currentPage=currentPage+1'></button>
 				</div>
 			  </div>
 			</div> 
+			<br>
 			</div>
 			<div class="modal fade" role="modal" id="DepartmentDetails"> 
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Modal Header</h4>
 						</div>
 						<div class="modal-body">
 						<form  name="form">
-						<div class="form-control">
+						<div class="form-group">
 							<label for="name">Name:</label>
-								<input class="form-control" ng-model="" placeholder="Name"/>
+								<input class="form-control" ng-model="departmentDetails[0].name" placeholder="Name"/>
 						</div>
+						
+					 <div class="row">
+					 <div class="col-md-4 col-xs-5 col-sm-4">
+					 <div class="form-group">
+							<label for="name">Color 1:</label>
+								 <input colorpicker="hex" class="form-control" ng-model="departmentDetails[0].colorcodes.color1" type="text"/>
+						</div>
+						</div>
+						<div class="col-md-4 col-xs-5 col-sm-4">
+						<div class="form-group">
+							<label for="name">Color 2:</label>
+								 <input colorpicker="hex" class="form-control" ng-model="departmentDetails[0].colorcodes.color2" type="text"/>
+						</div> 
+						</div>
+						
+						<div class="col-md-4 col-xs-2 col-sm-4">
+						<div class="panel img-thumbnail" style="height:80px;width:80px; background-image: linear-gradient(to right, {{departmentDetails[0].colorcodes.color1 || '#ffffff'}} , {{departmentDetails[0].colorcodes.color2 || '#fffff'}});">
+						</div> 
+						</div> 
+						</div> 
+						<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
 						<div class="form-group">
 							<label for="icon">Icon:</label>
-								<div class="btn btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+								<input type="file" class="btn btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
 					ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" 
-					ngf-resize="{width: 100, height: 100}">Select icon</div>
+					ngf-resize="{width: 100, height: 100}" onchange="readURL(this);"/>
+						</div>
+						</div>
+						
+						<div class="col-md-6 col-sm-6 col-xs-12">
+						 <img id="imgpanel" src="uploads/{{departmentDetails[0].icon}}" class="img-responsive img-tumbnail col-md-12 col-xs-12" />
+						</div>
 						</div>
 					
+						 <button type="submit" class="btn btn-primary" ng-click="submit()" data-dismiss="modal">submit</button>
+						
 				 
 				</form>
 						</div>
-						<div class="modal-footer">
-						 <button type="submit" class="btn btn-primary" ng-click="submit()">submit</button>
-						</div>
+						
 					</div>
 				</div>
 			</div>
 			
+			<div class="row">
+			<br>
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<th>#</th>
+							<th>Name</th>
+							<th>Colors</th>
+							<th>Icon</th>
+							<th>Action</th>
+						</thead>
+						<tbody ng-init="ListDepartments()">
+							<tr ng-repeat="data in departmentList | filter:search.field | startFrom:currentPage*pageSize | limitTo:pageSize">
+								<td>{{$index +1}}</td>
+								<td>{{data.name}}</td>
+								<td>{{data.colorcodes.color1}} - {{data.colorcodes.color2}}</td>
+								<td style="background-image: linear-gradient(to right, {{data.colorcodes.color1 || '#ffffff'}} , {{data.colorcodes.color2 || '#fffff'}});"><img src="uploads/{{data.icon}}" class="img-responsive img-thumbnail col-md-4 col-xs-4 col-md-offset-4"/></td>
+								<td class="text-center"><button class="btn btn-warning" ng-click="getDepartmentDetails(data._id)" data-toggle="modal" data-target="#DepartmentDetails">Edit</button> | <button class="btn btn-danger" ng-click="deleteDepartmentDetails(data._id)">Delete</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 			
 		
 	</div>
 </div>
+
