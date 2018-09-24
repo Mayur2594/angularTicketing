@@ -42,4 +42,8 @@ angular.module('Ticketing', ['ngSanitize','ngRoute','ngResource','ngFileUpload',
        if(input!=undefined)
         {return input.slice(start);}
     }
+}).filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
 });
