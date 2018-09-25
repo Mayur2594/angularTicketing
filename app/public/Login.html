@@ -8,59 +8,86 @@
 	<div class="container">
 		<div class="row mt-5">
 						
-						<div class="flip-box">
-						  <div class="flip-box-inner" id="flip-box-inner">
-							<div class="flip-box-front">
-								 <div class="col-md-6 col-xs-12 col-sm-6 col-md-offset-3">
-			
-							<div class="panel panel-success">
-								<div class="panel-heading text-center text-white"><h2 class="h2-responsive">Start your session</h2></div>
-								<div class="panel-body">
-										<form name="signin" ng-submit="UserAuth()">
-											<div class="form-group">
-											<div class="row">
-												<div class="col-md-3 col-xs-4"><label>Username:</label></div>
-												<div class="input-container col-md-9 col-xs-8">
-												<input type="text" ng-model="user.username" placeholder="Username" class="form-control"/></div>
-											</div>
-											
-											<div class="row mt-1">
-												<div class="col-md-3 col-xs-4"><label>Password:</label></div>
-												<div class=" input-container col-md-9 col-xs-8">
-												<input type="password" ng-model="user.password" id="password" placeholder="Password" class="form-control"/>
-													<span ng-click="ShowHidePassword()" class="input-button btn btn-default"><i id="showhide" class="glyphicon glyphicon-eye-open"></i></span>
-												</div>
-											</div>
-											
-											<div class="row mt-1 text-center">
-												<button type="submit" class="btn btn-success">Sign in</button>
-											</div>
-											
-											<div class="col-md-12 col-xs-12 mt-1 text-right">
-												<a href="#" ng-click="ForgotPasswordPanel('180')">Forgot Password?</a>
-											</div>
-											</div>
-										</form>
-								</div>
-							</div>
-							
-							</div>
-							</div>
-							<div class="flip-box-back">
-							   <div class="col-md-6 col-xs-12 col-sm-6 col-md-offset-3">
-			
-							<div class="panel panel-warning">
-								<div class="panel-heading text-center text-white"><h2 class="h2-responsive">Forgot Password?</h2></div>
-								<div class="panel-body">Panel Content</div>
-							</div>
-							
-							</div>
-							</div>
-						  </div>
-						</div>
-												
+						
+						
+						
+						
+						<div class="col-md-6 col-xs-12 col-sm-12 pull-right mt-5 my-5 pt-4 py-4">
+		<div class="flip-box">
+		<div class="flip-box-inner" id="flippanel">
+		<div class="flip-box-front">
+		<div class="panel panel-success">
+		  <div class="panel-heading text-center"><h4>Start your session</h4></div>
+		  <div class="panel-body">
+				<form class="form-horizontal" name="signin" ng-submit="UserAuth()">
 				
-		
+				  <div class="form-group mt-5">
+					<label class="col-sm-2 control-label">Username:</label>
+					<div class="col-sm-10">
+					  <input class="form-control" id="username" ng-model="user.username"  type="text" placeholder="Username">
+					</div>
+				  </div>
+				  
+				  <div class="form-group mt-5">
+					<label class="col-sm-2 control-label">Password:</label>
+					<div class="col-sm-10">
+					 <div class="input-group" id="psfld">
+					  <input id="password" type="password" ng-model="user.password"  class="form-control" name="password" placeholder="Password">
+					   <span class="input-group-addon" ng-click="showHidePassword()"><i class="glyphicon glyphicon-eye-open" id="togglcls"></i></span>
+					</div>
+					</div>
+				  </div>
+				  
+				  <div class="form-group text-center mt-5">
+					<button type="submit" class="btn btn-success">Login</button>
+				  </div>
+				  
+				  <div class="col-md-6 pull-left text-left">
+					<span class="text-danger">{{errormessage}}</span>
+				  </div>
+				  <div class="col-md-6 pull-right text-right">
+					<a  ng-click="forgotpassword(180)">Forgot password?</a>
+				  </div>
+				  
+				</form>
+		  </div>
+		  </div>
+		  </div>
+		  <div class="flip-box-back">
+			  <div class="panel panel-warning">
+		  <div class="panel-heading text-center"><h4>Forgot Password?</h4></div>
+		  <div class="panel-body">
+				<form class="form-horizontal">
+				
+				  <div class="form-group mt-5">
+					<label class="col-sm-2 control-label">Username:</label>
+					<div class="col-sm-10">
+					  <input class="form-control" id="username" type="text" placeholder="Username">
+					</div>
+				  </div>
+
+				  <div class="form-group mt-5">
+					<label class="col-sm-2 control-label">Email:</label>
+					<div class="col-sm-10">
+					  <input class="form-control" id="email" type="email" placeholder="Email">
+					</div>
+				  </div>
+				  <div class="form-group text-center mt-5">
+					<button type="button" ng-click="forgotpassword(360)" class="btn btn-warning">Cancel</button>
+					&nbsp;<button type="button" class="btn btn-success">Submit</button>
+				  </div>
+				  <div class="form-group text-center mt-5">
+					
+				  </div>
+				  
+				</form>
+		  </div>
+		  </div>
+			</div>
+		</div>
+		</div>
+    </div>
+					
 		</div>
 	</div>
 </div>

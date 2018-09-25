@@ -59,32 +59,27 @@ angular.module('Ticketing')
 					$window.location.reload(); 
 				};
 						
-			$scope.ShowHidePassword = function()
-			{$("#showhide").toggleClass("glyphicon-eye-close");
-						 var x = document.getElementById("password");
-							if (x.type === "password") {
-								x.type = "text";
-								
-							} else {
-								x.type = "password";
-							}
 						
-					
-			};
-			
-			$scope.ForgotPasswordPanel = function(degree)
-			{
-						var elm = document.getElementById("flip-box-inner");
-						elm.style.WebkitTransform = "rotateY(180deg)"; 
-						// Code for IE9
-						elm.style.msTransform = "rotateY(180deg)"; 
-						// Standard syntax
-						elm.style.transform = "rotateY(180deg)"; 
-					
-										
-			};
-			
-
+						$scope.showHidePassword = function()
+					  {
+							var passwordfield = document.getElementById("password");
+							if (passwordfield.type === "password") {
+								passwordfield.type = "text";
+							}
+							else {
+								passwordfield.type = "password";
+							}
+							var elm = document.getElementById("togglcls");
+							elm.classList.toggle("glyphicon-eye-close");
+							
+					  };
+		$scope.forgotpassword = function(degree)
+		{		
+				var elm = document.getElementById("psfld");
+				elm.classList.toggle("hiddenelem");
+				document.getElementById("flippanel").style.transform = "rotateY("+degree+"deg)";
+		};
+				
 			
 			/* ----------------------------------------------------------------------- */
 			
@@ -243,14 +238,14 @@ angular.module('Ticketing')
 			}).then(function(response)
 			{
 				console.log(response)
-				/* if(response.success)
+				 if(response.data.success)
 				{
 					
 				}
 				else
 				{
-					$scope.errormessage= response.message;
-				} */
+					$scope.errormessage= response.data.message;
+				} 
 			});
 		};
 		

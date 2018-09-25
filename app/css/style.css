@@ -118,8 +118,12 @@ button.bg-dark:hover {
 						
 					
 
+
 .flip-box {
-  background-color: #fffff;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #f1f1f1;
   perspective: 1000px;
 }
 
@@ -127,15 +131,18 @@ button.bg-dark:hover {
   position: relative;
   width: 100%;
   height: 100%;
-  text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
 }
 
 /* .flip-box:hover .flip-box-inner {
   transform: rotateY(180deg);
+} */
+.flip-box-front
+{
+	background-color:#ffffff;
 }
- */
+
 .flip-box-front, .flip-box-back {
   position: absolute;
   width: 100%;
@@ -143,26 +150,11 @@ button.bg-dark:hover {
   backface-visibility: hidden;
 }
 
-.flip-box-front {
-  background-color: #bbb;
-  color: black;
-}
 
 .flip-box-back {
-  background-color: #555;
-  color: white;
-   transform: rotateY(180deg); 
+  transform: rotateY(180deg);
 }
 
-
-        .input-container input:focus, .input-container input:active {
-            outline: none;
-        }
-        .input-container input {
-            width: 80%;
-            float: left;
-        }
-
-        .input-container button {
-            float: right;
-        }
+.hiddenelem{
+  display:none !important;
+}
