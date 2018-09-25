@@ -59,7 +59,30 @@ angular.module('Ticketing')
 					$window.location.reload(); 
 				};
 						
+			$scope.ShowHidePassword = function()
+			{$("#showhide").toggleClass("glyphicon-eye-close");
+						 var x = document.getElementById("password");
+							if (x.type === "password") {
+								x.type = "text";
+								
+							} else {
+								x.type = "password";
+							}
+						
+					
+			};
 			
+			$scope.ForgotPasswordPanel = function(degree)
+			{
+						var elm = document.getElementById("flip-box-inner");
+						elm.style.WebkitTransform = "rotateY(180deg)"; 
+						// Code for IE9
+						elm.style.msTransform = "rotateY(180deg)"; 
+						// Standard syntax
+						elm.style.transform = "rotateY(180deg)"; 
+					
+										
+			};
 			
 
 			
@@ -88,6 +111,7 @@ angular.module('Ticketing')
 					, dataType: 'jsonp'
 					}).then(function (response) {
 						$scope.departments = response.data;
+						console.log($scope.departments)
 					});
 			};
 			
@@ -205,6 +229,28 @@ angular.module('Ticketing')
 				alert(response.data.message);
 				$scope.userDetails =[];
 				$scope.ListUsers();
+			});
+		};
+		
+		
+		$scope.UserAuth = function()
+		{
+			$http({
+				 method  : 'POST',
+				 url     : 'api/UserAuth/',
+				 data    : $scope.user,
+				 headers : {'Content-Type': 'application/json'} 
+			}).then(function(response)
+			{
+				console.log(response)
+				/* if(response.success)
+				{
+					
+				}
+				else
+				{
+					$scope.errormessage= response.message;
+				} */
 			});
 		};
 		

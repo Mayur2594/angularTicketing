@@ -1,5 +1,66 @@
+<style>
+	#mainMenu{
+	  display:none;
+	}
+</style>
+
 <div class="container-fluid" ng-controller="universalController">
-	<div class="row">
-		<h2>Login Screen</h2>
+	<div class="container">
+		<div class="row mt-5">
+						
+						<div class="flip-box">
+						  <div class="flip-box-inner" id="flip-box-inner">
+							<div class="flip-box-front">
+								 <div class="col-md-6 col-xs-12 col-sm-6 col-md-offset-3">
+			
+							<div class="panel panel-success">
+								<div class="panel-heading text-center text-white"><h2 class="h2-responsive">Start your session</h2></div>
+								<div class="panel-body">
+										<form name="signin" ng-submit="UserAuth()">
+											<div class="form-group">
+											<div class="row">
+												<div class="col-md-3 col-xs-4"><label>Username:</label></div>
+												<div class="input-container col-md-9 col-xs-8">
+												<input type="text" ng-model="user.username" placeholder="Username" class="form-control"/></div>
+											</div>
+											
+											<div class="row mt-1">
+												<div class="col-md-3 col-xs-4"><label>Password:</label></div>
+												<div class=" input-container col-md-9 col-xs-8">
+												<input type="password" ng-model="user.password" id="password" placeholder="Password" class="form-control"/>
+													<span ng-click="ShowHidePassword()" class="input-button btn btn-default"><i id="showhide" class="glyphicon glyphicon-eye-open"></i></span>
+												</div>
+											</div>
+											
+											<div class="row mt-1 text-center">
+												<button type="submit" class="btn btn-success">Sign in</button>
+											</div>
+											
+											<div class="col-md-12 col-xs-12 mt-1 text-right">
+												<a href="#" ng-click="ForgotPasswordPanel('180')">Forgot Password?</a>
+											</div>
+											</div>
+										</form>
+								</div>
+							</div>
+							
+							</div>
+							</div>
+							<div class="flip-box-back">
+							   <div class="col-md-6 col-xs-12 col-sm-6 col-md-offset-3">
+			
+							<div class="panel panel-warning">
+								<div class="panel-heading text-center text-white"><h2 class="h2-responsive">Forgot Password?</h2></div>
+								<div class="panel-body">Panel Content</div>
+							</div>
+							
+							</div>
+							</div>
+						  </div>
+						</div>
+												
+				
+		
+		</div>
 	</div>
 </div>

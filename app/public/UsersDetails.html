@@ -1,7 +1,7 @@
 
 <div class="container-fluid" ng-controller="universalController">
 	<div class="container">
-		<div class="row"  ng-init="ListUsers();ListDepts()">
+		<div class="row"  ng-init="ListUsers();ListDepts();">
 			<div class="loader"></div>
 	<div class="container">
 		 <div class="row">
@@ -88,9 +88,8 @@
 						<div class="col-md-6 col-xs-12 col-sm-6">
 						<div class="form-group">
 							<label for="department">Department:</label>
-								 <select class="form-control" ng-model="userDetails[0].department" ng-options="obj as obj.name for obj in departments">
-									<option value="" selected disabled>Department</option>
-								 </select>
+								 <input type="text" class="form-control" ng-model="userDetails[0].department" uib-typeahead ="obj as obj.name for obj in departments | filter: {name:$viewValue}" placeholder="Select Department">
+									
 						</div> 
 						</div>
 						
@@ -123,7 +122,7 @@
 							  <tr ng-repeat="row in usersList">
 							  <td>{{$index +1}}</td>
 								<td ng-repeat="header in tablefields" ng-show="header.visible">{{ row[header.field].name}}</td>
-								<td class="text-center"><button class="btn btn-warning" ng-click="getUsersDetails(row._id);ListDepts();" data-toggle="modal" data-target="#userDetails">Edit</button> | <button class="btn btn-danger" ng-click="deleteUsersDetails(row._id)">Delete</button></td>
+								<td class="text-center"><button class="btn btn-warning" ng-click="getUsersDetails(row._id)" data-toggle="modal" data-target="#userDetails">Edit</button> | <button class="btn btn-danger" ng-click="deleteUsersDetails(row._id)">Delete</button></td>
 							  </tr>
 							</tbody>
 						  </table> 
